@@ -15,7 +15,7 @@ if(NOT hasParent)
 endif ()
 
 SET_MIN_VERSIONS()
-set(LibName 
+set(LibName render_meshmodplatonicssolids)
 project(${LibName})
 
 set(Interface
