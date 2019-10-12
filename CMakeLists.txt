@@ -15,7 +15,7 @@ if(NOT hasParent)
 endif ()
 
 SET_MIN_VERSIONS()
-set(LibName render_meshmodplatonicssolids)
+set(LibName render_meshmodshapes)
 project(${LibName})
 
 set(Interface
@@ -26,6 +26,7 @@ set(Src
 
 set(Deps
     al2o3_platform
+		render_meshmod
 		)
 ADD_LIB(${LibName} "${Interface}" "${Src}" "${Deps}")
 
