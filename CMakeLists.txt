@@ -19,15 +19,23 @@ set(LibName render_meshmodshapes)
 project(${LibName})
 
 set(Interface
+		shapes.h
 		)
 
-set(Src
-		)
+file(GLOB_RECURSE GlobSrc CONFIGURE_DEPENDS src/*.c )
+file(GLOB_RECURSE GlobSrc CONFIGURE_DEPENDS src/*.cpp )
+
+set(Src "")
+foreach (_src ${GlobSrc})
+	get_filename_component(sname ${_src} NAME)
+	list(APPEND Src ${sname})
+endforeach ()
 
 set(Deps
     al2o3_platform
-		render_meshmod
-		)
+	render_meshmod
+)
+
 ADD_LIB(${LibName} "${Interface}" "${Src}" "${Deps}")
 
 set( Tests
