@@ -51,7 +51,7 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_TetrahedonCreate(MeshMod_Registr
 			eh[i] = MeshMod_MeshEdgeAlloc(mesh);
 
 			// deindex and copy vertex data
-			uint32_t const vertIndex = (faceIndex*3) + i;
+			uint32_t const vertIndex = faces[(faceIndex*3) +i ];
 			v[i] = Math_FromVec3F(pos + (vertIndex *3));
 		}
 		// per face data
@@ -121,7 +121,7 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_CubeCreate(MeshMod_RegistryHandl
 			eh[i] = MeshMod_MeshEdgeAlloc(mesh);
 
 			// deindex and copy vertex data
-			uint32_t const vertIndex = (faceIndex*4) + i;
+			uint32_t const vertIndex = faces[(faceIndex*4) +i ];
 			v[i] = Math_FromVec3F(pos + (vertIndex *3));
 		}
 		// per face data
@@ -187,7 +187,7 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_OctahedronCreate(MeshMod_Registr
 			eh[i] = MeshMod_MeshEdgeAlloc(mesh);
 
 			// deindex and copy vertex data
-			uint32_t const vertIndex = (faceIndex*3) + i;
+			uint32_t const vertIndex = faces[(faceIndex*3) +i ];
 			v[i] = Math_FromVec3F(pos + (vertIndex *3));
 		}
 		// per face data
@@ -278,7 +278,7 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_IcosahedronCreate(MeshMod_Regist
 			eh[i] = MeshMod_MeshEdgeAlloc(mesh);
 
 			// deindex and copy vertex data
-			uint32_t const vertIndex = (faceIndex*3) + i;
+			uint32_t const vertIndex = faces[(faceIndex*3) +i ];
 			v[i] = Math_FromVec3F(pos + (vertIndex *3));
 		}
 		// per face data
@@ -367,7 +367,7 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_DodecahedronCreate(MeshMod_Regis
 			eh[i] = MeshMod_MeshEdgeAlloc(mesh);
 
 			// deindex and copy vertex data
-			uint32_t const vertIndex = (faceIndex*3) + i;
+			uint32_t const vertIndex = faces[(faceIndex*3) +i ];
 			v[i] = Math_FromVec3F(pos + (vertIndex *3));
 		}
 		// per face data
