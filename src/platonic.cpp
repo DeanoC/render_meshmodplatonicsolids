@@ -7,6 +7,8 @@
 #include "render_meshmod/edge/halfedge.h"
 #include "render_meshmod/polygon/tribrep.h"
 #include "render_meshmod/polygon/quadbrep.h"
+#include "render_meshmod/polygon/convexbrep.h"
+#include "render_meshmod/polygon/basicdata.h"
 #include "render_meshmodshapes/shapes.h"
 
 static Math_Vec3F CalcNormal(Math_Vec3F const v0, Math_Vec3F v1, Math_Vec3F v2) {
@@ -38,6 +40,7 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_TetrahedonCreate(MeshMod_Registr
 	MeshMod_MeshVertexTagEnsure(mesh, MeshMod_VertexNormalTag);
 	MeshMod_MeshEdgeTagEnsure(mesh, MeshMod_EdgeHalfEdgeTag);
 	MeshMod_MeshPolygonTagEnsure(mesh, MeshMod_PolygonTriBRepTag);
+	MeshMod_MeshPolygonTagEnsure(mesh, MeshMod_PolygonIdTag);
 
 	for (uint32_t faceIndex = 0u; faceIndex < NumFaces; ++faceIndex) {
 
@@ -58,6 +61,8 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_TetrahedonCreate(MeshMod_Registr
 		Math_Vec3F normal = CalcNormal(v[0], v[1], v[2]);
 		MeshMod_PolygonHandle triHandle = MeshMod_MeshPolygonAlloc(mesh);
 		MeshMod_PolygonTriBRep* brep = MeshMod_MeshPolygonTriBRepTagHandleToPtr(mesh, triHandle, 0);
+		*MeshMod_MeshPolygonU32TagHandleToPtr(mesh, triHandle, MeshMod_PolygonIdUserTag) = faceIndex;
+
 
 		for(uint32_t i = 0u; i < 3; ++i) {
 			Math_Vec3F* positionData = (Math_Vec3F*) MeshMod_MeshVertexPositionTagHandleToPtr(mesh,vh[i], 0);
@@ -108,6 +113,7 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_CubeCreate(MeshMod_RegistryHandl
 	MeshMod_MeshVertexTagEnsure(mesh, MeshMod_VertexNormalTag);
 	MeshMod_MeshEdgeTagEnsure(mesh, MeshMod_EdgeHalfEdgeTag);
 	MeshMod_MeshPolygonTagEnsure(mesh, MeshMod_PolygonQuadBRepTag);
+	MeshMod_MeshPolygonTagEnsure(mesh, MeshMod_PolygonIdTag);
 
 	for (uint32_t faceIndex = 0u; faceIndex < NumFaces; ++faceIndex) {
 
@@ -128,6 +134,7 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_CubeCreate(MeshMod_RegistryHandl
 		Math_Vec3F normal = CalcNormal(v[0], v[1], v[2]);
 		MeshMod_PolygonHandle quadHandle = MeshMod_MeshPolygonAlloc(mesh);
 		MeshMod_PolygonQuadBRep* brep = MeshMod_MeshPolygonQuadBRepTagHandleToPtr(mesh, quadHandle, 0);
+		*MeshMod_MeshPolygonU32TagHandleToPtr(mesh, quadHandle, MeshMod_PolygonIdUserTag) = faceIndex;
 
 		for(uint32_t i = 0u; i < 4; ++i) {
 			Math_Vec3F* positionData = (Math_Vec3F*) MeshMod_MeshVertexPositionTagHandleToPtr(mesh, vh[i], 0);
@@ -174,6 +181,7 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_OctahedronCreate(MeshMod_Registr
 	MeshMod_MeshVertexTagEnsure(mesh, MeshMod_VertexNormalTag);
 	MeshMod_MeshEdgeTagEnsure(mesh, MeshMod_EdgeHalfEdgeTag);
 	MeshMod_MeshPolygonTagEnsure(mesh, MeshMod_PolygonTriBRepTag);
+	MeshMod_MeshPolygonTagEnsure(mesh, MeshMod_PolygonIdTag);
 
 	for (uint32_t faceIndex = 0u; faceIndex < NumFaces; ++faceIndex) {
 
@@ -194,6 +202,7 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_OctahedronCreate(MeshMod_Registr
 		Math_Vec3F normal = CalcNormal(v[0], v[1], v[2]);
 		MeshMod_PolygonHandle triHandle = MeshMod_MeshPolygonAlloc(mesh);
 		MeshMod_PolygonTriBRep* brep = MeshMod_MeshPolygonTriBRepTagHandleToPtr(mesh, triHandle, 0);
+		*MeshMod_MeshPolygonU32TagHandleToPtr(mesh, triHandle, MeshMod_PolygonIdUserTag) = faceIndex;
 
 		for(uint32_t i = 0u; i < 3; ++i) {
 			Math_Vec3F* positionData = (Math_Vec3F*) MeshMod_MeshVertexPositionTagHandleToPtr(mesh,vh[i], 0);
@@ -265,6 +274,7 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_IcosahedronCreate(MeshMod_Regist
 	MeshMod_MeshVertexTagEnsure(mesh, MeshMod_VertexNormalTag);
 	MeshMod_MeshEdgeTagEnsure(mesh, MeshMod_EdgeHalfEdgeTag);
 	MeshMod_MeshPolygonTagEnsure(mesh, MeshMod_PolygonTriBRepTag);
+	MeshMod_MeshPolygonTagEnsure(mesh, MeshMod_PolygonIdTag);
 
 	for (uint32_t faceIndex = 0u; faceIndex < NumFaces; ++faceIndex) {
 
@@ -285,6 +295,7 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_IcosahedronCreate(MeshMod_Regist
 		Math_Vec3F normal = CalcNormal(v[0], v[1], v[2]);
 		MeshMod_PolygonHandle triHandle = MeshMod_MeshPolygonAlloc(mesh);
 		MeshMod_PolygonTriBRep* brep = MeshMod_MeshPolygonTriBRepTagHandleToPtr(mesh, triHandle, 0);
+		*MeshMod_MeshPolygonU32TagHandleToPtr(mesh, triHandle, MeshMod_PolygonIdUserTag) = faceIndex;
 
 		for(uint32_t i = 0u; i < 3; ++i) {
 			Math_Vec3F* positionData = (Math_Vec3F*) MeshMod_MeshVertexPositionTagHandleToPtr(mesh,vh[i], 0);
@@ -353,29 +364,31 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_DodecahedronCreate(MeshMod_Regis
 	MeshMod_MeshVertexTagEnsure(mesh, MeshMod_VertexPositionTag);
 	MeshMod_MeshVertexTagEnsure(mesh, MeshMod_VertexNormalTag);
 	MeshMod_MeshEdgeTagEnsure(mesh, MeshMod_EdgeHalfEdgeTag);
-	MeshMod_MeshPolygonTagEnsure(mesh, MeshMod_PolygonTriBRepTag);
+	MeshMod_MeshPolygonTagEnsure(mesh, MeshMod_PolygonConvexBRepTag);
+	MeshMod_MeshPolygonTagEnsure(mesh, MeshMod_PolygonIdTag);
 
 	for (uint32_t faceIndex = 0u; faceIndex < NumFaces; ++faceIndex) {
 
-		Math_Vec3F v[3];
-		MeshMod_VertexHandle vh[3];
-		MeshMod_EdgeHandle eh[3];
+		Math_Vec3F v[5];
+		MeshMod_VertexHandle vh[5];
+		MeshMod_EdgeHandle eh[5];
 
-		for(uint32_t i = 0u; i < 3; ++i) {
+		for(uint32_t i = 0u; i < 5; ++i) {
 			// allocate vertex and edges from mesh mod
 			vh[i] = MeshMod_MeshVertexAlloc(mesh);
 			eh[i] = MeshMod_MeshEdgeAlloc(mesh);
 
 			// deindex and copy vertex data
-			uint32_t const vertIndex = faces[(faceIndex*3) +i ];
+			uint32_t const vertIndex = faces[(faceIndex*5) +i ];
 			v[i] = Math_FromVec3F(pos + (vertIndex *3));
 		}
 		// per face data
 		Math_Vec3F normal = CalcNormal(v[0], v[1], v[2]);
-		MeshMod_PolygonHandle triHandle = MeshMod_MeshPolygonAlloc(mesh);
-		MeshMod_PolygonTriBRep* brep = MeshMod_MeshPolygonTriBRepTagHandleToPtr(mesh, triHandle, 0);
+		MeshMod_PolygonHandle convexHandle = MeshMod_MeshPolygonAlloc(mesh);
+		MeshMod_PolygonConvexBRep* brep = MeshMod_MeshPolygonConvexBRepTagHandleToPtr(mesh, convexHandle, 0);
+		*MeshMod_MeshPolygonU32TagHandleToPtr(mesh, convexHandle, MeshMod_PolygonIdUserTag) = faceIndex;
 
-		for(uint32_t i = 0u; i < 3; ++i) {
+		for(uint32_t i = 0u; i < 5; ++i) {
 			Math_Vec3F* positionData = (Math_Vec3F*) MeshMod_MeshVertexPositionTagHandleToPtr(mesh,vh[i], 0);
 			Math_Vec3F* normalData = (Math_Vec3F*) MeshMod_MeshVertexNormalTagHandleToPtr(mesh, vh[i], 0);
 			memcpy( positionData, v + i, sizeof(Math_Vec3F));
@@ -383,9 +396,10 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_DodecahedronCreate(MeshMod_Regis
 
 			MeshMod_EdgeHalfEdge* halfEdge = MeshMod_MeshEdgeHalfEdgeTagHandleToPtr(mesh, eh[i], 0);
 			halfEdge->vertex = vh[i];
-			halfEdge->polygon = triHandle;
+			halfEdge->polygon = convexHandle;
 			brep->edge[i] = eh[i];
 		}
+		brep->numEdges = 5;
 
 	}
 

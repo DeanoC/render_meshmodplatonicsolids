@@ -5,6 +5,9 @@
 #include "render_meshmod/registry.h"
 #include "al2o3_cmath/aabb.h"
 
+// all shapes have a polygon id element,
+// this will survive triangulation for better original polygon colouring etc.
+
 AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_TetrahedonCreate(MeshMod_RegistryHandle registry);
 AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_CubeCreate(MeshMod_RegistryHandle registry);
 AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_OctahedronCreate(MeshMod_RegistryHandle registry);
