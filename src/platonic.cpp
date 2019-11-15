@@ -12,9 +12,10 @@
 #include "render_meshmodshapes/shapes.h"
 
 static Math_Vec3F CalcNormal(Math_Vec3F const v0, Math_Vec3F v1, Math_Vec3F v2) {
-	Math_Vec3F e0 = Math_NormaliseVec3F(Math_SubVec3F(v1, v0));
-	Math_Vec3F e1 = Math_NormaliseVec3F(Math_SubVec3F(v2, v0));
-	Math_Vec3F n = Math_CrossVec3F(e0, e1);
+	Math_Vec3F e0 = Math_SubVec3F(v1, v0);
+	Math_Vec3F e1 = Math_SubVec3F(v2, v0);
+	Math_Vec3F nn = Math_CrossVec3F(e0, e1);
+	Math_Vec3F n = Math_NormaliseVec3F(nn);
 	return n;
 }
 
@@ -25,16 +26,16 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_TetrahedonCreate(MeshMod_Registr
 	static const uint32_t NumVertices = 4;
 	static const uint32_t NumFaces = 4;
 	float const pos[NumVertices * 3] = {
-			1,  1,  1,
-			1, -1,  1,
-			-1,  1, -1,
 			-1, -1,  1,
+			 1,  1,  1,
+			 1, -1,  1,
+			 1,  1, -1,
 	};
 	uint32_t const faces[NumFaces * 3] = {
-			1, 2, 0,
-			2, 3, 0,
-			3, 1, 0,
-			2, 1, 3,
+			0, 1, 2,
+			1, 3, 2,
+			0, 2, 3,
+			0, 3, 1,
 	};
 	MeshMod_MeshVertexTagEnsure(mesh, MeshMod_VertexPositionTag);
 	MeshMod_MeshVertexTagEnsure(mesh, MeshMod_VertexNormalTag);
@@ -329,25 +330,25 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_DodecahedronCreate(MeshMod_Regis
 	static const uint32_t NumFaces = 12;
 	static const float pos[NumVertices * 3] = {
 			-a,  0,  b,
-			a,  0,  b,
-			-1, -1, -1,
-			-1, -1,  1,
+			 a,  0,  b,
 			-1,  1, -1,
 			-1,  1,  1,
-			1, -1, -1,
-			1, -1,  1,
-			1,  1, -1,
-			1,  1,  1,
-			b,  a,  0,
-			b, -a,  0,
-			-b,  a,  0,
+			-1, -1, -1,
+			-1, -1,  1,
+			 1,  1, -1,
+			 1,  1,  1,
+			 1, -1, -1,
+			 1, -1,  1,
+			 b, -a,  0,
+			 b,  a,  0,
 			-b, -a,  0,
+			-b,  a,  0,
 			-a,  0, -b,
-			a,  0, -b,
-			0,  b,  a,
-			0,  b, -a,
-			0, -b,  a,
-			0, -b, -a,
+			 a,  0, -b,
+			 0, -b,  a,
+			 0, -b, -a,
+			 0,  b,  a,
+			 0,  b, -a,
 	};
 
 	static uint32_t const faces[NumFaces * 5] = {
@@ -385,7 +386,7 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_DodecahedronCreate(MeshMod_Regis
 			// deindex and copy vertex data
 			uint32_t const vertIndex = faces[(faceIndex*5) +i ];
 			v[i] = Math_FromVec3F(pos + (vertIndex *3));
-			v[i] = Math_ScalarMulVec3F(v[i], 0.5f);
+			v[i] = Math_ScalarMulVec3F(v[i], 0.31f);
 		}
 		// per face data
 		Math_Vec3F normal = CalcNormal(v[0], v[1], v[2]);

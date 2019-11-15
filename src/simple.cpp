@@ -12,11 +12,13 @@
 #include "render_meshmodshapes/shapes.h"
 
 static Math_Vec3F CalcNormal(Math_Vec3F const v0, Math_Vec3F v1, Math_Vec3F v2) {
-	Math_Vec3F e0 = Math_NormaliseVec3F(Math_SubVec3F(v1, v0));
-	Math_Vec3F e1 = Math_NormaliseVec3F(Math_SubVec3F(v2, v0));
-	Math_Vec3F n = Math_CrossVec3F(e0, e1);
+	Math_Vec3F e0 = Math_SubVec3F(v1, v0);
+	Math_Vec3F e1 = Math_SubVec3F(v2, v0);
+	Math_Vec3F nn = Math_CrossVec3F(e0, e1);
+	Math_Vec3F n = Math_NormaliseVec3F(nn);
 	return n;
 }
+
 AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_DiamondCreate(MeshMod_RegistryHandle registry) {
 
 	MeshMod_MeshHandle mesh = MeshMod_MeshCreate(registry, "Diamond");
@@ -24,24 +26,23 @@ AL2O3_EXTERN_C MeshMod_MeshHandle MeshModShapes_DiamondCreate(MeshMod_RegistryHa
 	static const uint32_t NumVertices = 6;
 	static const uint32_t NumFaces = 8;
 	float const pos[NumVertices * 3] = {
-			-0.5f, 0,  -0.5f,
-			0.5f,  0,  -0.5f,
-			0.5f,  0,  0.5f,
-			-0.5f, 0,  0.5f,
-
-			0,     1,  0,
-			0,     -1, 0,
+			-0.5f,  0,  0,
+			 0.5f,  0,  0,
+			 0,    -1,  0,
+			 0,     1,  0,
+			 0,     0, -0.5f,
+			 0,     0,  0.5f,
 	};
 
 	uint32_t const faces[NumFaces * 3] = {
-			0, 4, 1,
-			1, 4, 2,
-			2, 4, 3,
-			3, 4, 0,
-			0, 1, 5,
-			1, 2, 5,
-			2, 3, 5,
-			3, 0, 5,
+			0, 3, 5,
+			0, 5, 2,
+			4, 3, 0,
+			4, 0, 2,
+			5, 3, 1,
+			5, 1, 2,
+			4, 1, 3,
+			4, 2, 1,
 	};
 	MeshMod_MeshVertexTagEnsure(mesh, MeshMod_VertexPositionTag);
 	MeshMod_MeshVertexTagEnsure(mesh, MeshMod_VertexNormalTag);
